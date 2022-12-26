@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "DevFreela.Core": {
+      "commandName": "Project",
+      "workingDirectory": "C:\\Users\\flavi\\dev\\.net-direto-ao-ponto\\devFreela\\DevFreela.API"
+    }
+  }
+}

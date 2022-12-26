@@ -4,7 +4,7 @@ namespace DevFreela.Infrastructure.Persistence
 {
     public class DevFreelaDbContext
     {
-        public DevFreelaDbContext(List<Project> projects, List<User> users, List<Skill> skills)
+        public DevFreelaDbContext()
         {
             Projects = new List<Project>()
             {
