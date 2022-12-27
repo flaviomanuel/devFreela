@@ -24,6 +24,9 @@ namespace DevFreela.Infrastructure.Configurations
               .WithMany(x => x.OwnedProjects)
               .HasForeignKey(x => x.IdClient)
               .OnDelete(DeleteBehavior.Restrict);
+
+
+            builder.Property(p => p.TotalCost).HasPrecision(2);
         }
     }
 }
