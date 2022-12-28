@@ -72,7 +72,10 @@ namespace DevFreela.Application.Services.Implementations
 
         public ProjectDetailsViewModel GetById(int id)
         {
-            var project = _dbContext.Projects.SingleOrDefault(p => p.Id == id);
+            var project = _dbContext.Projects
+                .Include(x => x.Client)
+                .Include(x => x.Freelancer)
+                .SingleOrDefault(p => p.Id == id);
 
             if (project == null) return null;
 
@@ -82,7 +85,9 @@ namespace DevFreela.Application.Services.Implementations
                 project.Description,
                 project.TotalCost,
                 project.StartedAt,
-                project.FinishedAt
+                project.FinishedAt,
+                project.Client.FullName,
+                project.Freelancer.FullName
                 );
 
             return projectDetailsViewModel;
