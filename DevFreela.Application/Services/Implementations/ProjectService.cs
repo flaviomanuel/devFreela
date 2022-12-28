@@ -1,4 +1,5 @@
-﻿using DevFreela.Application.InputModels;
+﻿using Dapper;
+using DevFreela.Application.InputModels;
 using DevFreela.Application.Services.Interfaces;
 using DevFreela.Application.ViewModels;
 using DevFreela.Core.Entities;
@@ -12,9 +13,11 @@ namespace DevFreela.Application.Services.Implementations
     public class ProjectService : IProjectService
     {
         private readonly DevFreelaDbContext _dbContext;
-        public ProjectService(DevFreelaDbContext dbContext)
+        private readonly string _connectionString;
+        public ProjectService(DevFreelaDbContext dbContext, IConfiguration configuration)
         {
-            _dbContext= dbContext;  
+            _dbContext= dbContext;
+            _connectionString = configuration.GetConnectionString("DevFreelaCs");
         }
         public int Create(NewProjectInputModel inputModel)
         {
@@ -94,9 +97,22 @@ namespace DevFreela.Application.Services.Implementations
         }
         public void Start(int id)
         {
+
             var project = _dbContext.Projects.SingleOrDefault(p => p.Id == id);
 
             project.Start();
+
+            using (var sqlConnection =  new SqlConnection(_connectionString))
+            {
+                sqlConnection.Open();
+
+                var script = "UPDATE Projects SET Status = @status, StartedAt = @startedAt where Id = @id";
+
+                sqlConnection.Execute(script, new { status = project.Status, startedAt = project.StartedAt, Id = id });
+            }
+          
+
+            // _dbContext.SaveChanges();
         }
 
         public void Update(UpdateProjectInputModel inputModel)
