@@ -20,6 +20,7 @@ builder.Services
     .AddDbContext<DevFreelaDbContext>(options => options.UseSqlServer(CONNECTION_STRING));
 
 builder.Services.AddScoped<IProjectService, ProjectService>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 builder.Services.AddMediatR(typeof(CreateProjectCommand));
 
