@@ -1,6 +1,4 @@
 using DevFreela.Application.Commands.CreateProject;
-using DevFreela.Application.Services.Implementations;
-using DevFreela.Application.Services.Interfaces;
 using DevFreela.Core.Repositories;
 using DevFreela.Infrastructure.Persistence;
 using DevFreela.Infrastructure.Persistence.Repositories;
@@ -25,7 +23,6 @@ builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 builder.Services.AddScoped<ISkillRepository, SkillRepository>();
-builder.Services.AddScoped<IUserService, UserService>();
 
 builder.Services.AddMediatR(typeof(CreateProjectCommand));
 
