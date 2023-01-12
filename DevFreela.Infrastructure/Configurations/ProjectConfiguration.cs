@@ -25,8 +25,8 @@ namespace DevFreela.Infrastructure.Configurations
               .HasForeignKey(x => x.IdClient)
               .OnDelete(DeleteBehavior.Restrict);
 
-
-            builder.Property(p => p.TotalCost).HasPrecision(2);
+            builder.Property(p => p.TotalCost)
+              .HasPrecision(18, 2);
         }
     }
 }
