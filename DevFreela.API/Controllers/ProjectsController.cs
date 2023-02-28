@@ -49,9 +49,14 @@ namespace DevFreela.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] CreateProjectCommand command)
         {
-            if (command.Title.Length > 50)
-            {
-                return BadRequest();
+            if(!ModelState.IsValid) {
+                var messages = ModelState
+                                .SelectMany(ms => ms.Value.Errors)
+                                .Select(e => e.ErrorMessage)
+                                .ToList();
+
+                return BadRequest(messages);
+
             }
 
             // Cadastrar o projeto
