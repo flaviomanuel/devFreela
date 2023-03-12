@@ -1,5 +1,6 @@
 ﻿using DevFreela.API.Models;
 using DevFreela.Application.Commands.CreateUser;
+using DevFreela.Application.Commands.LoginUser;
 using DevFreela.Application.Queries.GetProjectById;
 using DevFreela.Application.Queries.GetUser;
 using MediatR;
@@ -13,7 +14,7 @@ namespace DevFreela.API.Controllers
         private readonly IMediator _mediator;
         public UsersController(IMediator mediator)
         {
-            _mediator = mediator;
+            _mediator  = mediator;
         }
         // api/users/1
         [HttpGet("{id}")]
@@ -47,10 +48,18 @@ namespace DevFreela.API.Controllers
         }
 
         // api/users/1/login
-        [HttpPut("{id}/login")]
-        public IActionResult Login(int id, [FromBody] LoginModel login)
+        [HttpPut("login")]
+        [AllowAnonymous]
+        public async Task<IActionResult> Login([FromBody] LoginUserCommand command)
         {
-            return NoContent();
+            var loginUserViewModel = await _mediator.Send(command);
+
+            if (loginUserViewModel == null)
+            {
+                return BadRequest();
+            }
+
+            return Ok(loginUserViewModel);
         }
     }
 }
