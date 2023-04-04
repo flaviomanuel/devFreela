@@ -13,11 +13,9 @@ namespace DevFreela.Application.Commands.FinishProject
             _projectRepository = projectRepository;
             _paymentService = paymentService; 
         }
-        public async Task<bool> Handle(FinishProjectCommand request, CancellationToken cancellationToken)
+        public  async Task<bool> Handle(FinishProjectCommand request, CancellationToken cancellationToken)
         {
             var project = await _projectRepository.GetDetailsByIdAsync(request.Id);
-
-            project.Finish();
 
             var paymentInfoDTO = new PaymentInfoDTO(){
                 Id = request.Id,
@@ -27,14 +25,13 @@ namespace DevFreela.Application.Commands.FinishProject
                 FullName = request.FullName
             };
 
-            var result = await _paymentService.ProcessPayment(paymentInfoDTO);
+             _paymentService.ProcessPayment(paymentInfoDTO);
 
-            if(!result)
-                project.SetPaymentPending();
+             project.SetPaymentPending();
 
             await _projectRepository.SaveChangesAsync();
 
-            return result;
+            return true;
         }
     }
 }
