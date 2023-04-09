@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System.Reflection.Emit;
 
-namespace DevFreela.Infrastructure.Configurations
+namespace DevFreela.Infrastructure.Persistence.Configurations
 {
     internal class UserSkillConfiguration : IEntityTypeConfiguration<UserSkill>
     {

@@ -1,7 +1,7 @@
 ﻿
 using DevFreela.Application.ViewModels;
 using DevFreela.Core.Repositories;
-using DevFreela.Core.Services;
+using DevFreela.Infrastructure.Auth;
 using MediatR;
 
 namespace DevFreela.Application.Commands.LoginUser

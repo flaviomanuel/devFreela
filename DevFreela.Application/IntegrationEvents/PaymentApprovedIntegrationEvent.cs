@@ -1,4 +1,4 @@
-namespace DevFreela.Core.IntegrationEvents
+namespace DevFreela.Application.IntegrationEvents
 {
     public class PaymentApprovedIntegrationEvent
     {

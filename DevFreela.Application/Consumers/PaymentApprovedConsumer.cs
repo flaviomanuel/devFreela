@@ -1,6 +1,6 @@
 using System.Text;
 using System.Text.Json;
-using DevFreela.Core.IntegrationEvents;
+using DevFreela.Application.IntegrationEvents;
 using DevFreela.Core.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;

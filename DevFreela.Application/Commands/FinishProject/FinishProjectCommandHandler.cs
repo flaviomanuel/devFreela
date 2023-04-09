@@ -1,5 +1,5 @@
 ﻿using DevFreela.Core.Repositories;
-using DevFreela.Core.Services;
+using DevFreela.Infrastructure.Services;
 using MediatR;
 
 namespace DevFreela.Application.Commands.FinishProject
@@ -17,15 +17,10 @@ namespace DevFreela.Application.Commands.FinishProject
         {
             var project = await _projectRepository.GetDetailsByIdAsync(request.Id);
 
-            var paymentInfoDTO = new PaymentInfoDTO(){
-                Id = request.Id,
-                CreditCardNumber = request.CreditCardNumber,
-                Cvv = request.Cvv,
-                ExpiresAt = request.ExpiresAt,
-                FullName = request.FullName
-            };
+              var paymentInfoDto = new PaymentInfoDTO(request.Id, request.CreditCardNumber, request.Cvv, request.ExpiresAt, request.FullName, project.TotalCost);
 
-             _paymentService.ProcessPayment(paymentInfoDTO);
+
+             _paymentService.ProcessPayment(paymentInfoDto);
 
              project.SetPaymentPending();
 
