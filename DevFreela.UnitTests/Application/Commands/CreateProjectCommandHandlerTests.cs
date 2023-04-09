@@ -16,8 +16,15 @@ namespace DevFreela.UnitTests.Application.Commands
         public async Task InputDataIsOk_Executed_ReturnProjectId()
         {
             //Arrange
-        
+            
+            var unityOfWorkMock =  new Mock<IUnityOfWork>();
+
             var projectRepositoryMock = new Mock<IProjectRepository>();
+
+            var skillRepository = new Mock<ISkillRepository>();
+
+            unityOfWorkMock.SetupGet(x => x.Projects).Returns(projectRepositoryMock.Object);
+            unityOfWorkMock.SetupGet(x => x.Skills).Returns(skillRepository.Object);
 
             var createProjectCommand =  new CreateProjectCommand(){
                 Title="Title teste", 
@@ -27,7 +34,7 @@ namespace DevFreela.UnitTests.Application.Commands
                 IdFreelancer = 2
             };
 
-            var createProjectCommandHandler = new CreateProjectCommandHandler(projectRepositoryMock.Object);
+            var createProjectCommandHandler = new CreateProjectCommandHandler(unityOfWorkMock.Object);
 
             //Act
 
