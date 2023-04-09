@@ -17,18 +17,13 @@ namespace DevFreela.Infrastructure.Persistence.Repositories
 
         public ProjectRepository(DevFreelaDbContext dbContext, IConfiguration configuration)
         {
-            _connectionString = configuration.GetConnectionString("DevFreelaCs");
             _dbContext = dbContext;
+            _connectionString = configuration.GetConnectionString("DevFreelaCs");
         }
 
-        public async Task<int> CreateProjectAsync(Project project)
+        public async Task CreateProjectAsync(Project project)
         {
             await _dbContext.Projects.AddAsync(project);
-
-            await _dbContext.SaveChangesAsync();
-
-
-            return project.Id;
         }
 
         public async Task<PaginationResult<Project>> GetAllAsync(string query, int page)

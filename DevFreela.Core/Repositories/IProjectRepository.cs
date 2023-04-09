@@ -7,7 +7,7 @@ namespace DevFreela.Core.Repositories
     {
         Task<PaginationResult<Project>> GetAllAsync(string query, int page = 1);
         Task<Project> GetDetailsByIdAsync(int id);
-        Task<int> CreateProjectAsync(Project project);
+        Task CreateProjectAsync(Project project);
         Task CreateCommentAsync(ProjectComment projectComment);
         Task StartAsync(Project project);
         Task SaveChangesAsync();
