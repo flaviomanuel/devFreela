@@ -38,10 +38,11 @@ namespace DevFreela.API.Controllers
         [HttpGet("{id}")]
         [Authorize(Roles = "client, freelancer")]
         public IActionResult GetById(int id)
+        public async Task<IActionResult> GetById(int id)
         {
             var query = new GetProjectByIdQuery(id);
 
-            var project = _mediator.Send(query);
+            var project = await _mediator.Send(query);
 
             if (project == null)
                 return NotFound();
