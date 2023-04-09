@@ -19,10 +19,18 @@ namespace DevFreela.Application.Commands.CreateProject
                 request.IdFreelancer,
                 request.TotalCost);
 
+            await _unityOfWork.BeginTransactionAsync();
+
             await _unityOfWork.Projects.CreateProjectAsync(project);
 
 
             await _unityOfWork.CompleteAsync();
+
+            await _unityOfWork.Skills.AddSkillFromProject(project);
+
+            await _unityOfWork.CompleteAsync();
+            
+            await _unityOfWork.CommitAsync();
             
             return project.Id;
         }
