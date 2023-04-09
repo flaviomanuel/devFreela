@@ -45,6 +45,7 @@ namespace DevFreela.Infrastructure.Persistence.Repositories
         var result =  await _dbContext.Projects
                 .Include(x => x.Client)
                 .Include(x => x.Freelancer)
+                .AsNoTracking()
                 .SingleOrDefaultAsync(p => p.Id == id);
 
         return result;
