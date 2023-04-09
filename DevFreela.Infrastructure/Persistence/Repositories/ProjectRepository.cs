@@ -29,9 +29,18 @@ namespace DevFreela.Infrastructure.Persistence.Repositories
             return project.Id;
         }
 
-        public async Task<List<Project>> GetAllAsync()
+        public async Task<List<Project>> GetAllAsync(string query)
         {
-            return await _dbContext.Projects.ToListAsync();
+            IQueryable<Project> projects =  _dbContext.Projects;
+
+            if(!string.IsNullOrWhiteSpace(query)){
+                projects = projects
+                                .Where(x => 
+                                            x.Title.Contains(query) ||
+                                            x.Description.Contains(query));
+            }
+
+            return await projects.ToListAsync();
         }
 
         public async Task<Project> GetDetailsByIdAsync(int id)
